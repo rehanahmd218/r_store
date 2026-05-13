@@ -1,0 +1,10 @@
+apple-pay.png
+cash_on_delivery.png
+credit-card.png
+google-pay.png
+master-card.png
+paypal.png
+paystack.png
+paytm.png
+successful_payment_icon.png
+visa.png

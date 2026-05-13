@@ -1,0 +1,10 @@
+acer_logo.png
+adidas-logo.png
+apple-logo.png
+herman-miller-logo.png
+ikea_logo.png
+jordan-logo.png
+kenwood-logo.png
+nike.png
+puma-logo.png
+zara-logo.png

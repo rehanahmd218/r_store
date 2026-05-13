@@ -1,0 +1,26 @@
+Animation - 1734020174401.json
+Animation%20-%201734020174401.json
+Animation%20-%201735396019850.json
+Animation%20-%201745236705111.json
+animation-lottie-car-rides.json
+animation-of-docer.json
+check-register.json
+cloud-uploading-animation.json
+empty-file.json
+lady-adding-product-in-cart-animation.json
+loader-animation.json
+loading-juggle.json
+order-complete-car-delivery-animation.json
+packaging-in-progress.json
+paper-plane.json
+payment-successful.json
+pencil-drawing.json
+sammy-line-come-back-later.png
+sammy-line-man-receives-a-mail.png
+sammy-line-sale.png
+sammy-line-success.png
+sammy-line-travel-backpack-with-passport-and-air-ticket.gif
+sammy-line-workout.gif
+searching.json
+security-icon-transparent.json
+thank-you.json
