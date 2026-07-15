@@ -17,7 +17,7 @@ abstract class RException implements Exception {
 /// -------------------- AUTH --------------------
 class RFirebaseAuthException extends RException {
   RFirebaseAuthException(FirebaseAuthException e)
-      : super(e.code, _mapAuthErrorCode(e.code));
+    : super(e.code, _mapAuthErrorCode(e.code));
 
   static String _mapAuthErrorCode(String code) {
     switch (code) {
@@ -25,6 +25,10 @@ class RFirebaseAuthException extends RException {
         return "The email address is not valid.";
       case 'invalid-credential':
         return "User Credentials not Correct.";
+      case 'configuration-not-found':
+        return "Firebase Auth is not fully configured for this app. Check that Email/Password sign-in is enabled in Firebase Console and that the Android app is registered in the correct Firebase project.";
+      case 'internal-error':
+        return "Firebase returned an internal configuration error. Verify your Firebase Auth setup and app registration.";
       case 'user-disabled':
         return "This account has been disabled.";
       case 'user-not-found':
@@ -43,12 +47,10 @@ class RFirebaseAuthException extends RException {
   }
 }
 
-
-
 /// -------------------- STORAGE --------------------
 class RFirebaseException extends RException {
   RFirebaseException(FirebaseException e)
-      : super(e.code, _mapFirebaseErrorCode(e.code));
+    : super(e.code, _mapFirebaseErrorCode(e.code));
 
   static String _mapFirebaseErrorCode(String code) {
     switch (code) {
@@ -85,7 +87,7 @@ class RFirebaseException extends RException {
 /// -------------------- PLATFORM --------------------
 class RPlatformChannelException extends RException {
   RPlatformChannelException(PlatformException e)
-      : super(e.code, _mapPlatformErrorCode(e.code));
+    : super(e.code, _mapPlatformErrorCode(e.code));
 
   static String _mapPlatformErrorCode(String code) {
     switch (code) {

@@ -45,7 +45,10 @@ app.*.map.json
 /android/app/release
 
 /firebase.json
+/lib/firebase_options.dart
 /lib.rar
 /assets.zip
 /features.zip
 /android/app/google-services.json
+
+

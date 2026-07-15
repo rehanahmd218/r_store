@@ -23,7 +23,7 @@ class AuthenticationRepository extends GetxController {
   }
 
   // Function to show redirect Screen
-  screenRedirect() async {
+  Future<void> screenRedirect() async {
     await deviceStorage.writeIfNull('isFirstTime', true);
 
     if (_auth.currentUser != null) {
