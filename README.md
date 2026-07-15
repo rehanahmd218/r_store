@@ -1,4 +1,4 @@
-# r_store
+# RStore
 
 A comprehensive, full-featured modern E-commerce application built with Flutter, Firebase, and GetX.
 
