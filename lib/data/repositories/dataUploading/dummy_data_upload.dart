@@ -2,8 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get/instance_manager.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:r_store/common/requests/request_with_exception.dart';
 import 'package:r_store/data/r_dummy_data.dart';
@@ -22,15 +21,62 @@ class DummyDataUpload extends GetxController {
 
   final fireBaseStorageService = Get.put(RFirebaseStorageService());
 
+  var uploadedItems = 0.obs;
+  var totalItems = 0.obs;
+
+  void showUploadDialog(String title, int total) {
+    uploadedItems.value = 0;
+    totalItems.value = total;
+    Get.dialog(
+      barrierDismissible: false,
+      PopScope(
+        canPop: false,
+        child: Dialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Obx(
+              () => Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text('Uploading...', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 20),
+                  Text(title),
+                  const SizedBox(height: 20),
+                  const CircularProgressIndicator(),
+                  const SizedBox(height: 20),
+                  Text('${uploadedItems.value} / ${totalItems.value} completed'),
+                  const SizedBox(height: 10),
+                  LinearProgressIndicator(
+                    value: totalItems.value > 0 ? uploadedItems.value / totalItems.value : 0,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void closeUploadDialog() {
+    if (Get.isDialogOpen == true) {
+      Get.back();
+    }
+  }
+
+
   Future<void> uploadDummyData<T>({
     required String collectionName,
     required List<T> dummyData,
     String? imgField,
     String? firebaseImgPath,
   }) async {
-    await runFirebaseSafely(() async {
-      final Map<String, String> uploadedImgUrls = {};
-      for (var element in dummyData) {
+    try {
+      showUploadDialog('Uploading $collectionName...', dummyData.length);
+      await runFirebaseSafely(() async {
+        final Map<String, String> uploadedImgUrls = {};
+        for (var element in dummyData) {
         try {
           final dataMap = (element as dynamic).toJson();
           if (imgField != null &&
@@ -53,6 +99,7 @@ class DummyDataUpload extends GetxController {
           } else {
             await _db.collection(collectionName).add(dataMap);
           }
+          uploadedItems.value++;
         } catch (e) {
           print('Error uploading data: $e');
           RLoaders.errorSnackBar(
@@ -61,11 +108,16 @@ class DummyDataUpload extends GetxController {
           );
         }
       }
+      closeUploadDialog();
       RLoaders.successSnackBar(
         title: 'Success',
-        message: 'Banners Uploaded Successfully',
+        message: '$collectionName Uploaded Successfully',
       );
     });
+    } catch (e) {
+      closeUploadDialog();
+      RLoaders.errorSnackBar(title: 'Error', message: e.toString());
+    }
   }
 
   Future<void> uploadBannersData() async {
@@ -119,8 +171,10 @@ class DummyDataUpload extends GetxController {
     final String fireBaseImgPath = 'Rehan_Pictures/Products';
     Map<String, String> uploadedImgUrls = {};
 
-    await runFirebaseSafely(() async {
-      for (ProductModel product in allProducts) {
+    try {
+      showUploadDialog('Uploading Products...', allProducts.length);
+      await runFirebaseSafely(() async {
+        for (ProductModel product in allProducts) {
         // LinearProgressIndicator(
         //   value: allProducts.indexOf(product) / allProducts.length,
         // );
@@ -231,11 +285,7 @@ class DummyDataUpload extends GetxController {
           }
 
           await _db.collection('rehan_products').doc(product.id).set(dataMap);
-          RLoaders.successSnackBar(
-            title: 'Success ',
-            message: 'Banners Uploaded Successfully',
-            duration: 1,
-          );
+          uploadedItems.value++;
         } catch (e) {
           print('Error uploading data: $e');
           RLoaders.errorSnackBar(
@@ -244,23 +294,39 @@ class DummyDataUpload extends GetxController {
           );
         }
       }
+      closeUploadDialog();
+      RLoaders.successSnackBar(
+        title: 'Success',
+        message: 'All Products Uploaded Successfully',
+      );
     });
+    } catch (e) {
+      closeUploadDialog();
+      RLoaders.errorSnackBar(title: 'Error', message: e.toString());
+    }
   }
 
   Future<void> uploadFireStoreData(
     List<Map<String, dynamic>> dataList,
     String collectionName,
   ) async {
-    await runFirebaseSafely(() async {
-      for (var dataMap in dataList) {
-        await _db.collection(collectionName).add(dataMap);
-      }
-      RLoaders.successSnackBar(
-
-        title: 'Success',
-        message: 'Data Uploaded Successfully',
-      );
-    });
+    try {
+      showUploadDialog('Uploading $collectionName...', dataList.length);
+      await runFirebaseSafely(() async {
+        for (var dataMap in dataList) {
+          await _db.collection(collectionName).add(dataMap);
+          uploadedItems.value++;
+        }
+        closeUploadDialog();
+        RLoaders.successSnackBar(
+          title: 'Success',
+          message: 'Data Uploaded Successfully',
+        );
+      });
+    } catch (e) {
+      closeUploadDialog();
+      RLoaders.errorSnackBar(title: 'Error', message: e.toString());
+    }
   }
 
   Future<void> uploadDummyBrandCategories() async {

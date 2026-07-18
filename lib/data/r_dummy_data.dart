@@ -16,57 +16,57 @@ class RDummyData {
     BannerModel(
       imgUrl: RImages.banner1,
       targetScreen: RRoutes.order,
-      isActive: false,
+      isActive: true,
     ),
     BannerModel(
       imgUrl: RImages.banner2,
       targetScreen: RRoutes.cart,
-      isActive: false,
+      isActive: true,
     ),
     BannerModel(
       imgUrl: RImages.banner3,
       targetScreen: RRoutes.favourites,
-      isActive: false,
+      isActive: true,
     ),
     BannerModel(
       imgUrl: RImages.banner4,
       targetScreen: RRoutes.settings,
-      isActive: false,
+      isActive: true,
     ),
     BannerModel(
       imgUrl: RImages.banner5,
       targetScreen: RRoutes.userAddress,
-      isActive: false,
+      isActive: true,
     ),
     BannerModel(
       imgUrl: RImages.banner6,
       targetScreen: RRoutes.checkout,
-      isActive: false,
+      isActive: true,
     ),
     BannerModel(
       imgUrl: RImages.banner7,
       targetScreen: RRoutes.userProfile,
-      isActive: false,
+      isActive: true,
     ),
     BannerModel(
       imgUrl: RImages.banner8,
       targetScreen: RRoutes.store,
-      isActive: false,
+      isActive: true,
     ),
     BannerModel(
       imgUrl: RImages.banner9,
       targetScreen: RRoutes.subCategories,
-      isActive: false,
+      isActive: true,
     ),
     BannerModel(
       imgUrl: RImages.banner10,
       targetScreen: RRoutes.allProducts,
-      isActive: false,
+      isActive: true,
     ),
     BannerModel(
       imgUrl: RImages.banner11,
       targetScreen: RRoutes.allProducts,
-      isActive: false,
+      isActive: true,
     ),
   ];
 

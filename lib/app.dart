@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       
-      title: 'Flutter Demo',
+      title: 'RStore-Ecommerce App',
       debugShowCheckedModeBanner: false,
       initialBinding: GeneralBindings(),
       theme: AppTheme.lightTheme,
