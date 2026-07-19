@@ -61,8 +61,9 @@ class UserRepository extends GetxController {
 
   Future<String> uploadPictureToFirebase(String path, XFile file) async {
     return runFirebaseSafely(() async {
-      // Create a reference to the location you want to upload to in Firebase Storage
-      final storageRef = FirebaseStorage.instance.ref(path).child(file.name);
+      // Use the user's UID as the file name so it always overwrites their old photo
+      final String filename = auth.currentUser?.uid ?? file.name;
+      final storageRef = FirebaseStorage.instance.ref(path).child(filename);
     
       // Upload the file to Firebase Storage
       await storageRef.putFile(File(file.path));

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:r_store/common/requests/request_with_exception.dart';
 import 'package:r_store/features/shop/models/product_model.dart';
-import 'package:r_store/data/r_dummy_data.dart';
+
 
 class ProductRespository extends GetxController {
   static ProductRespository get to => Get.find<ProductRespository>();
@@ -19,12 +19,9 @@ class ProductRespository extends GetxController {
             .get();
         return snapshot.docs.map((doc) => ProductModel.fromJson(doc)).toList();
       });
-      if (products.isEmpty) {
-        return RDummyData.products.where((p) => p.isFeatured ?? false).take(4).toList();
-      }
       return products;
     } catch (e) {
-      return RDummyData.products.where((p) => p.isFeatured ?? false).take(4).toList();
+      throw 'Something went wrong. Please try again';
     }
   }
 
@@ -37,12 +34,9 @@ class ProductRespository extends GetxController {
             .get();
         return snapshot.docs.map((doc) => ProductModel.fromJson(doc)).toList();
       });
-      if (products.isEmpty) {
-        return RDummyData.products.where((p) => p.isFeatured ?? false).toList();
-      }
       return products;
     } catch (e) {
-      return RDummyData.products.where((p) => p.isFeatured ?? false).toList();
+      throw 'Something went wrong. Please try again';
     }
   }
 
@@ -59,10 +53,9 @@ class ProductRespository extends GetxController {
             )
             .toList();
       });
-      if (products.isEmpty) return RDummyData.products;
       return products;
     } catch (e) {
-      return RDummyData.products;
+      throw 'Something went wrong. Please try again';
     }
   }
 
@@ -79,18 +72,9 @@ class ProductRespository extends GetxController {
             .get();
         return snapshot.docs.map((doc) => ProductModel.fromJson(doc)).toList();
       });
-      if (products.isEmpty) {
-        return RDummyData.products
-            .where((p) => p.brand?.id == id)
-            .take(limit > 0 ? limit : 1000)
-            .toList();
-      }
       return products;
     } catch (e) {
-      return RDummyData.products
-          .where((p) => p.brand?.id == id)
-          .take(limit > 0 ? limit : 1000)
-          .toList();
+      throw 'Something went wrong. Please try again';
     }
   }
 
@@ -105,16 +89,9 @@ class ProductRespository extends GetxController {
             .get();
         return snapshot.docs.map((doc) => ProductModel.fromJson(doc)).toList();
       });
-      if (products.isEmpty) {
-        return RDummyData.products
-            .where((p) => productIds.contains(p.id))
-            .toList();
-      }
       return products;
     } catch (e) {
-      return RDummyData.products
-          .where((p) => productIds.contains(p.id))
-          .toList();
+      throw 'Something went wrong. Please try again';
     }
   }
 
@@ -146,26 +123,9 @@ class ProductRespository extends GetxController {
             : <ProductModel>[];
       });
 
-      if (products.isEmpty) {
-        final productIds = RDummyData.productCategories
-            .where((pc) => pc.categoryId == categoryId)
-            .take(limit > 0 ? limit : 1000)
-            .map((pc) => pc.productId)
-            .toList();
-        return RDummyData.products
-            .where((p) => productIds.contains(p.id))
-            .toList();
-      }
       return products;
     } catch (e) {
-      final productIds = RDummyData.productCategories
-          .where((pc) => pc.categoryId == categoryId)
-          .take(limit > 0 ? limit : 1000)
-          .map((pc) => pc.productId)
-          .toList();
-      return RDummyData.products
-          .where((p) => productIds.contains(p.id))
-          .toList();
+      throw 'Something went wrong. Please try again';
     }
   }
 }

@@ -52,7 +52,7 @@ class ProductModel {
         images = [],
         price = 0.0,
         stockQuantity = 0.0,
-        thumbnail = RImages.productImage1,
+        thumbnail = '',
         isFeatured = false,
         salePrice = 0.0,
         date = null,
