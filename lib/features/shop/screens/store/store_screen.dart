@@ -19,6 +19,7 @@ import 'package:r_store/utils/constants/colors.dart';
 import 'package:r_store/utils/constants/sizes.dart';
 import 'package:r_store/utils/helpers/helper_functions.dart';
 import 'package:get/get.dart';
+import 'package:r_store/features/shop/screens/cart/cart_screen.dart';
 
 class StoreScreen extends StatelessWidget {
   const StoreScreen({super.key});
@@ -35,7 +36,7 @@ class StoreScreen extends StatelessWidget {
         actions: [
           RCartCounterIcon(
             iconColor: isDark ? RColors.white : RColors.backgroundDark,
-            onPressed: () {},
+            onPressed: () => Get.to(() => const CartScreen()),
           ),
         ],
       ),
