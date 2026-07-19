@@ -26,6 +26,7 @@ class UserRepository extends GetxController {
 
   Future<UserModel?> fetchUserData() async {
     return runFirebaseSafely(() async {
+      if (auth.currentUser == null) return null;
       DocumentSnapshot doc = await _firestore
           .collection('rehan_users')
           .doc(auth.currentUser?.uid)
