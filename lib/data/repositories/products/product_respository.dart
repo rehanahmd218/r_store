@@ -20,11 +20,11 @@ class ProductRespository extends GetxController {
         return snapshot.docs.map((doc) => ProductModel.fromJson(doc)).toList();
       });
       if (products.isEmpty) {
-        return RDummyData.products.where((p) => p.isFeatured).take(4).toList();
+        return RDummyData.products.where((p) => p.isFeatured ?? false).take(4).toList();
       }
       return products;
     } catch (e) {
-      return RDummyData.products.where((p) => p.isFeatured).take(4).toList();
+      return RDummyData.products.where((p) => p.isFeatured ?? false).take(4).toList();
     }
   }
 
@@ -38,11 +38,11 @@ class ProductRespository extends GetxController {
         return snapshot.docs.map((doc) => ProductModel.fromJson(doc)).toList();
       });
       if (products.isEmpty) {
-        return RDummyData.products.where((p) => p.isFeatured).toList();
+        return RDummyData.products.where((p) => p.isFeatured ?? false).toList();
       }
       return products;
     } catch (e) {
-      return RDummyData.products.where((p) => p.isFeatured).toList();
+      return RDummyData.products.where((p) => p.isFeatured ?? false).toList();
     }
   }
 
