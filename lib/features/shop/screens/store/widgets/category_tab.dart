@@ -68,11 +68,24 @@ class RCategoryTab extends StatelessWidget {
                     showActionButton: true,
                   ),
                   const SizedBox(height: RSizes.spaceBtwItems / 2),
-                  RGridLayout(
-                    itemCount: 4,
-                    itemBuilder: (_, index) {
-                      return RProductCardVertical(
-                        product: ProductModel.empty(),
+                  FutureBuilder(
+                    future: ProductsController.instance.fetchCategoryProducts(
+                      categoryId: category.id,
+                      limit: 4,
+                    ),
+                    builder: (context, snapshot) {
+                      final widget = RCloudHelperFunctions.checkMultiRecordState(
+                        snapshot: snapshot,
+                      );
+                      if (widget != null) return widget;
+                      final products = snapshot.data as List<ProductModel>;
+                      return RGridLayout(
+                        itemCount: products.length,
+                        itemBuilder: (_, index) {
+                          return RProductCardVertical(
+                            product: products[index],
+                          );
+                        },
                       );
                     },
                   ),

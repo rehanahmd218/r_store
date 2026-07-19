@@ -39,12 +39,18 @@ class RProductImageSlider extends StatelessWidget {
                 height: 360,
                 child: Padding(
                   padding: EdgeInsets.all(RSizes.borderRadiusLg),
-                  child: Obx(
-                    () => CachedNetworkImage(
-                      fit: BoxFit.cover,
-                      imageUrl: controller.selectedImage.value,
-                    ),
-                  ),
+                  child: Obx(() {
+                    final image = controller.selectedImage.value;
+                    return image.startsWith('http')
+                        ? CachedNetworkImage(
+                            fit: BoxFit.cover,
+                            imageUrl: image,
+                          )
+                        : Image(
+                            image: AssetImage(image),
+                            fit: BoxFit.cover,
+                          );
+                  }),
                 ),
               ),
             ),

@@ -125,23 +125,46 @@ class ProductRespository extends GetxController {
     try {
       final products = await runFirebaseSafely(() async {
         final snapshot = await _db
-            .collection('rehan_products')
+            .collection('rehan_product_categories')
             .where('categoryId', isEqualTo: categoryId)
             .limit(limit > 0 ? limit : 1000)
             .get();
-        return snapshot.docs.map((doc) => ProductModel.fromJson(doc)).toList();
+            
+        final productIds = snapshot.docs
+            .map((doc) => doc['productId'] as String)
+            .toList();
+            
+        return productIds.isNotEmpty
+            ? await _db.collection('rehan_products').where(
+                FieldPath.documentId,
+                whereIn: productIds,
+              ).get().then((productSnap) {
+                return productSnap.docs
+                    .map((doc) => ProductModel.fromJson(doc))
+                    .toList();
+              })
+            : <ProductModel>[];
       });
+
       if (products.isEmpty) {
-        return RDummyData.products
-            .where((p) => p.categoryId == categoryId)
+        final productIds = RDummyData.productCategories
+            .where((pc) => pc.categoryId == categoryId)
             .take(limit > 0 ? limit : 1000)
+            .map((pc) => pc.productId)
+            .toList();
+        return RDummyData.products
+            .where((p) => productIds.contains(p.id))
             .toList();
       }
       return products;
     } catch (e) {
-      return RDummyData.products
-          .where((p) => p.categoryId == categoryId)
+      final productIds = RDummyData.productCategories
+          .where((pc) => pc.categoryId == categoryId)
           .take(limit > 0 ? limit : 1000)
+          .map((pc) => pc.productId)
+          .toList();
+      return RDummyData.products
+          .where((p) => productIds.contains(p.id))
           .toList();
     }
   }
