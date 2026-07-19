@@ -20,7 +20,7 @@ class VerifyEmailController extends GetxController {
 
 void setAutoRedirectTimer() async {
   Timer.periodic(const Duration(seconds: 2), (timer) async {
-    if (await checkEmailVerified() == true) {
+    if (await checkEmailVerified(showErrors: false) == true) {
       timer.cancel();
       print('\n\nEmail verified! Timer cancelled.\n\n');
       return;
@@ -29,7 +29,7 @@ void setAutoRedirectTimer() async {
   });
 }
 
-Future<bool> checkEmailVerified() async {
+Future<bool> checkEmailVerified({bool showErrors = true}) async {
   final FirebaseAuth auth = FirebaseAuth.instance;
   try {
     await auth.currentUser?.reload();
@@ -40,14 +40,16 @@ Future<bool> checkEmailVerified() async {
           subtitle: 'Your email has been successfully verified.',
           image: RImages.staticSuccessIllustration,
           onPressed: () {
-            Get.offAll(AuthenticationRepository.instance.screenRedirect());
+            AuthenticationRepository.instance.screenRedirect();
           },
         ),
       );
       return true;
     }
   } catch (e) {
-    RLoaders.errorSnackBar(title: 'Error', message: e.toString());
+    if (showErrors) {
+      RLoaders.errorSnackBar(title: 'Error', message: e.toString());
+    }
     return false;
   }
   return false;
