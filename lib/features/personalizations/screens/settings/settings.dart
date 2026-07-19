@@ -135,8 +135,37 @@ class SettingsScreen extends StatelessWidget {
                     leadingIcon: Iconsax.document_upload,
                     subtitle: 'Upload Data to your Cloud Firebase',
                     title: 'Upload Data',
-                    onTap: (){
-                      Get.to(()=>UploadDataScreen());
+                    onTap: () {
+                      final TextEditingController passwordController = TextEditingController();
+                      Get.defaultDialog(
+                        title: 'Admin Access',
+                        content: Column(
+                          children: [
+                            const Text('Please enter the password to access the upload screen.'),
+                            const SizedBox(height: 10),
+                            TextField(
+                              controller: passwordController,
+                              obscureText: true,
+                              decoration: const InputDecoration(hintText: 'Password'),
+                            ),
+                          ],
+                        ),
+                        confirm: ElevatedButton(
+                          onPressed: () {
+                            if (passwordController.text == 'RehanStore@7869@123') {
+                              Get.back(); // close dialog
+                              Get.to(() => const UploadDataScreen());
+                            } else {
+                              Get.snackbar('Error', 'Incorrect password', snackPosition: SnackPosition.BOTTOM);
+                            }
+                          },
+                          child: const Text('Submit'),
+                        ),
+                        cancel: OutlinedButton(
+                          onPressed: () => Get.back(),
+                          child: const Text('Cancel'),
+                        ),
+                      );
                     },
                   ),
                   const SizedBox(height: RSizes.spaceBtwSections),

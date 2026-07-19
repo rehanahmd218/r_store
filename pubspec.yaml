@@ -97,7 +97,6 @@ flutter:
     - assets/logos/
     - assets/icons/payment_methods/
     - assets/images/on_boarding_images/
-    - assets/images/banners/
     - assets/images/animations/sammy-line-man-receives-a-mail.png
     - assets/images/animations/pencil-drawing.json
     - assets/images/animations/animation-of-docer.json
