@@ -38,12 +38,14 @@ class AddressRepository extends GetxController {
     String oldAddressId,
   ) async {
     return runFirebaseSafely(() async {
-      await _db
-          .collection('rehan_users')
-          .doc(userId)
-          .collection('addresses')
-          .doc(oldAddressId)
-          .update({'SelectedAddress': false});
+      if (oldAddressId.isNotEmpty) {
+        await _db
+            .collection('rehan_users')
+            .doc(userId)
+            .collection('addresses')
+            .doc(oldAddressId)
+            .update({'SelectedAddress': false});
+      }
 
       await _db
           .collection('rehan_users')
