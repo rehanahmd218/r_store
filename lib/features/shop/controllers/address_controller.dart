@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:r_store/data/repositories/address/address_repository.dart';
 import 'package:r_store/data/repositories/authentication/authentication_repository.dart';
 import 'package:r_store/features/shop/models/address_mode.dart';
+import 'package:r_store/features/shop/screens/addresses/new_address_screen.dart';
 import 'package:r_store/features/shop/screens/addresses/widgets/address_card.dart';
 import 'package:r_store/utils/constants/sizes.dart';
 import 'package:r_store/utils/helpers/cloud_helper_functions.dart';
@@ -143,7 +144,22 @@ class AddressController extends GetxController {
                 }
                 final data = asyncSnapshot.data as List<AddressModel>;
                 if (data.isEmpty) {
-                  return Column(children: [Text("No addresses found")]);
+                  return Column(
+                    children: [
+                      const Text("No addresses found"),
+                      const SizedBox(height: RSizes.spaceBtwItems),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            Get.to(() => const AddNewAddressScreen());
+                          },
+                          child: const Text('Add New Address'),
+                        ),
+                      ),
+                    ],
+                  );
                 }
                 return Column(
                   spacing: RSizes.spaceBtwItems,
