@@ -22,7 +22,7 @@ class RFullScreenLoader {
       builder: (_) => PopScope(
         canPop: false,   // Disables popping with the back button
         child: Container(
-        color: RHelperFunctions.isDarkMode(Get.context!) ? RColors.darkGrey : RColors.white,
+        color: RHelperFunctions.isDarkMode(Get.context!) ? RColors.backgroundDark : RColors.white,
         width: double.infinity,
         
         height: double.infinity,

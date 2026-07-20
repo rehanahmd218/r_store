@@ -19,7 +19,9 @@ class RUserReviewCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                CircleAvatar(),
+                CircleAvatar(
+                  backgroundColor: isDark ? RColors.darkImageBg : null,
+                ),
                 const SizedBox(width: RSizes.sm),
                 Text('Rehan', style: Theme.of(context).textTheme.bodyMedium),
               ],
@@ -51,7 +53,9 @@ class RUserReviewCard extends StatelessWidget {
 
         RRoundedContainer(
           padding: EdgeInsets.all(RSizes.defaultSpace),
-          bgColor: isDark ? RColors.darkGrey : RColors.grey,
+          bgColor: isDark ? RColors.darkSurface : RColors.grey,
+          showBorder: isDark,
+          borderColor: RColors.darkCardBorder,
 
           child: Column(
             children: [

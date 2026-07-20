@@ -1,5 +1,6 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:r_store/data/repositories/authentication/authentication_repository.dart';
@@ -99,33 +100,41 @@ class LoginController extends GetxController {
 
   void loginWithgoogle() async {
     final userController = Get.put(UserController());
+    bool dialogOpened = false;
     try {
-      
       final isConnected = await NetworkManager.instance.isConnected();
-      if (!isConnected) {
-        // RFullScreenLoader.stopLoading();
-        return;
-      }
+      if (!isConnected) return;
 
       final userCreds = await AuthenticationRepository.instance.signInWithGoogle();
       if (userCreds == null) {
-        // RFullScreenLoader.stopLoading();
-        // print('Google Sign-In was cancelled or failed.');
-         RLoaders.errorSnackBar(title: 'Error', message: 'Google Sign-In was cancelled or failed.');
+        // User cancelled — do nothing, no snackbar needed
         return;
       }
-      
+
+      // Only open the dialog after we have confirmed credentials
+      dialogOpened = true;
       RFullScreenLoader.openLoadingDialog('We are Logging in with Google...', RImages.loaderDocerAnimation);
-      // await Future.delayed(Duration(seconds: 5));
       userController.saveUserRecord(userCreds);
-      // RFullScreenLoader.stopLoading();
       AuthenticationRepository.instance.screenRedirect();
-      // Save User Data in Firestore
+    } on PlatformException catch (e) {
+      // Silently ignore user cancellation
+      final code = e.code.toLowerCase();
+      if (code.contains('canceled') || code.contains('cancelled') || code.contains('sign_in_canceled')) {
+        return;
+      }
+      RLoaders.errorSnackBar(title: 'Error', message: e.message ?? e.toString());
     } catch (e) {
+      final msg = e.toString().toLowerCase();
+      // Silently ignore cancellation from google_sign_in
+      if (msg.contains('canceled') || msg.contains('cancelled') || msg.contains('sign_in_canceled')) {
+        return;
+      }
       RLoaders.errorSnackBar(title: 'Error', message: e.toString());
-    }
-    finally {
-      RFullScreenLoader.stopLoading();
+    } finally {
+      // Only pop the dialog if it was actually opened
+      if (dialogOpened) {
+        RFullScreenLoader.stopLoading();
+      }
     }
   }
 }

@@ -12,6 +12,7 @@ import 'package:r_store/features/shop/screens/product_details/widgets/product_im
 import 'package:r_store/features/shop/screens/product_details/widgets/product_metadata.dart';
 import 'package:r_store/features/shop/screens/product_details/widgets/product_rating_and_share.dart';
 import 'package:r_store/features/shop/screens/reviews/reviews_screen.dart';
+import 'package:r_store/features/shop/screens/reviews/widgets/user_review_card.dart';
 import 'package:r_store/utils/constants/colors.dart';
 
 import 'package:r_store/utils/constants/sizes.dart';
@@ -125,6 +126,9 @@ class ProductDetailsScreen extends StatelessWidget {
                     },
                   ),
                   const SizedBox(height: RSizes.spaceBtwItems),
+                  // Preview: show 2 reviews inline
+                  const RUserReviewCard(),
+                  const RUserReviewCard(),
                 ],
               ),
             ),

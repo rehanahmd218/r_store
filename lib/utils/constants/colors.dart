@@ -48,4 +48,12 @@ class RColors {
   static const Color darkGrey = Color(0xFF939393);
   static const Color darkerGrey = Color(0xFF4F4F4F);
   static const Color softGrey = Color(0xFFF4F4F4);
+
+  // Dark Mode Surface Colors
+  /// Card / container background in dark mode
+  static const Color darkSurface = Color(0xFF1E1E1E);
+  /// Slightly lighter surface, e.g. image areas inside dark cards
+  static const Color darkImageBg = Color(0xFF2A2A2A);
+  /// Subtle white border for dark-mode cards (8 % opacity)
+  static const Color darkCardBorder = Color(0x14FFFFFF);
 }

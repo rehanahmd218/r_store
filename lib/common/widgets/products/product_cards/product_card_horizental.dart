@@ -35,8 +35,9 @@ class RProductCardHorizental extends StatelessWidget {
       onTap: () => {Get.to(() => ProductDetailsScreen(product: product))},
       child: RRoundedContainer(
         width: 310,
-        showBorder: false,
-        bgColor: isDark ? RColors.darkGrey : RColors.containerLight,
+        showBorder: isDark,
+        borderColor: RColors.darkCardBorder,
+        bgColor: isDark ? RColors.darkSurface : RColors.containerLight,
         child: Row(
           children: [
             // Thumbnail

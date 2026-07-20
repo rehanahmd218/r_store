@@ -40,11 +40,12 @@ class RProductCardVertical extends StatelessWidget {
 
         // padding: EdgeInsets.all(),
         decoration: BoxDecoration(
-          boxShadow: [RShadowStyle.verticalProductShadow],
+          boxShadow: dark ? [] : [RShadowStyle.verticalProductShadow],
           borderRadius: BorderRadius.circular(RSizes.productItemRadius),
-          color: RHelperFunctions.isDarkMode(context)
-              ? RColors.darkerGrey
-              : RColors.white,
+          color: dark ? RColors.darkSurface : RColors.white,
+          border: dark
+              ? Border.all(color: RColors.darkCardBorder, width: 1)
+              : null,
         ),
 
         // Main Product Data section
@@ -57,7 +58,7 @@ class RProductCardVertical extends StatelessWidget {
               width: 180,
 
               // padding: EdgeInsets.all(4),
-              bgColor: dark ? RColors.backgroundDark : RColors.lightGrey,
+              bgColor: dark ? RColors.darkImageBg : RColors.lightGrey,
               child: Stack(
                 children: [
                   RRoundedImage(

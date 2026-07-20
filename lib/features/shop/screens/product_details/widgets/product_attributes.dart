@@ -32,7 +32,7 @@ class RProductAttributes extends StatelessWidget {
           // Product Short Description + Price Details Card
           if (variationController.selectedVariation.value.id.isNotEmpty)
             RRoundedContainer(
-              bgColor: isDark ? RColors.darkerGrey : RColors.grey,
+              bgColor: isDark ? RColors.darkSurface : RColors.grey,
               padding: EdgeInsets.all(RSizes.defaultSpace / 2),
               child: Column(
                 children: [

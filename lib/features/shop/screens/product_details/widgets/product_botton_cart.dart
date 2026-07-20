@@ -21,8 +21,9 @@ class RProductDetailNavigationBar extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(RSizes.sm),
       decoration: BoxDecoration(
-        color: isDark ? RColors.darkerGrey : RColors.grey,
+        color: isDark ? RColors.darkSurface : RColors.grey,
         borderRadius: BorderRadius.circular(RSizes.sm),
+        border: isDark ? Border.all(color: RColors.darkCardBorder, width: 1) : null,
         boxShadow: [
           BoxShadow(
             color: isDark ? Colors.black54 : Colors.grey.shade300,
@@ -42,7 +43,7 @@ class RProductDetailNavigationBar extends StatelessWidget {
                   icon: Iconsax.minus,
                   width: 40,
                   height: 40,
-                  bgColor: RColors.darkGrey,
+                  bgColor: isDark ? RColors.darkImageBg : RColors.darkGrey,
                   iconColor: RColors.white,
                   onPressed: () {
                     cartController.productQuantityinCart.value > 0
@@ -58,7 +59,7 @@ class RProductDetailNavigationBar extends StatelessWidget {
                   icon: Iconsax.add,
                   width: 40,
                   height: 40,
-                  bgColor: RColors.black,
+                  bgColor: isDark ? RColors.primary : RColors.black,
                   iconColor: RColors.white,
                   onPressed: () {
                     cartController.productQuantityinCart.value++;
@@ -69,8 +70,8 @@ class RProductDetailNavigationBar extends StatelessWidget {
             ElevatedButton(
               onPressed: cartController.productQuantityinCart.value < 1 ? null : ()=> cartController.addToCart(product),
               style: ElevatedButton.styleFrom(
-                backgroundColor: RColors.black,
-                side: BorderSide(color: RColors.black),
+                backgroundColor: isDark ? RColors.primary : RColors.black,
+                side: BorderSide(color: isDark ? RColors.primary : RColors.black),
                 padding: EdgeInsets.symmetric(
                   horizontal: RSizes.defaultSpace,
                   vertical: RSizes.sm,
