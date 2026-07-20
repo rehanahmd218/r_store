@@ -6,7 +6,7 @@ import 'package:r_store/features/shop/models/brand_model.dart';
 import 'package:r_store/utils/constants/enums.dart';
 import 'package:r_store/utils/constants/image_strings.dart';
 import 'package:r_store/utils/constants/sizes.dart';
-
+import 'package:r_store/utils/constants/colors.dart';
 class RBrandCard extends StatelessWidget {
   const RBrandCard({
     super.key,
@@ -29,6 +29,7 @@ class RBrandCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             RCircularImage(
+              bgColor: isDark ? RColors.darkSurface : RColors.grey,
               fit: BoxFit.contain,
               imgUrl: brand.image,
               padding: EdgeInsets.all(4),

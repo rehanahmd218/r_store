@@ -27,7 +27,7 @@ class RCartItem extends StatelessWidget {
           width: 60,
           height: 60,
           padding: EdgeInsets.all(RSizes.sm),
-          bgColor: isDark ? RColors.darkGrey : RColors.grey,
+          bgColor: isDark ? RColors.darkSurface : RColors.grey,
         ),
         const SizedBox(width: RSizes.spaceBtwItems),
         Expanded(
